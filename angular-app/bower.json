@@ -1,0 +1,13 @@
+{
+  "name": "Ferris Angular App",
+  "dependencies": {
+    "jquery": "2.0.x",
+    "angular": "1.4.x",
+    "angular-route": "1.4.x",
+    "cs-angular-utilities": "git@bitbucket.org:cloudsherpas/angular-utilities.git#master",
+    "angular-ui-select": "~0.12.0",
+    "angular-sanitize": "~1.4.1",
+    "moment": "~2.10.6",
+    "Materialize": "materialize#~0.97.3"
+  }
+}

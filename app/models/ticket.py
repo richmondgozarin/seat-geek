@@ -4,15 +4,16 @@ APP_ID = app_identity.get_application_id()
 
 
 class Ticket(BasicModel):
-    event_id = ndb.StringProperty()
-    scalper_name = ndb.StringProperty()
-    event_name = ndb.StringProperty()
-    event_description = ndb.StringProperty()
-    schedule = ndb.StringProperty()
-    section = ndb.StringProperty()
-    quantity = ndb.IntegerProperty()
-    price = ndb.FloatProperty()
-    venue = ndb.StringProperty()
+    event_id = ndb.StringProperty(indexed=False)
+    scalper_name = ndb.StringProperty(indexed=True)
+    event_name = ndb.StringProperty(indexed=True)
+    event_description = ndb.StringProperty(indexed=True)
+    schedule_date = ndb.DateProperty(indexed=True)
+    schedule_time = ndb.StringProperty(indexed=True)
+    section = ndb.StringProperty(indexed=True)
+    quantity = ndb.IntegerProperty(indexed=False)
+    price = ndb.FloatProperty(indexed=True)
+    venue = ndb.StringProperty(indexed=True)
 
     @classmethod
     def list_all(cls):

@@ -5,12 +5,12 @@ APP_ID = app_identity.get_application_id()
 
 class Order(BasicModel):
     order_id = ndb.IntegerProperty()
-    event_id = ndb.IntegerProperty()
-    scalper_name = ndb.StringProperty()
-    event_name = ndb.StringProperty()
-    buyer = ndb.StringProperty()
-    quantity = ndb.IntegerProperty()
-    price = ndb.FloatProperty()
+    event_id = ndb.IntegerProperty(indexed=False)
+    scalper_name = ndb.StringProperty(indexed=True)
+    event_name = ndb.StringProperty(indexed=True)
+    buyer = ndb.StringProperty(indexed=False)
+    quantity = ndb.IntegerProperty(indexed=False)
+    price = ndb.FloatProperty(indexed=True)
 
     @classmethod
     def list_all(cls):

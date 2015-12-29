@@ -1,9 +1,15 @@
 <nav class="orange" role="navigation">
     <div class="nav-wrapper container">
       <a id="logo-container" href="#" class="brand-logo">SeatGeek</a>
-
+      <ul class="right hide-on-med-and-down">
+        <li><a href="#/signup">Signup</a></li>
+      </ul>
+      <ul id="nav-mobile" class="side-nav" style="left: -250px;">
+        <li><a href="#/signup">Signup</a></li>
+      </ul>
       <a href="#" data-activates="nav-mobile" class="button-collapse top-nav" data-sidenav="left" data-menuwidth="500"  data-closeonclick="true"><i class="material-icons">menu</i></a>
     </div>
+
   </nav>
 
   <div id="index-banner" class="parallax-container">
@@ -39,41 +45,19 @@
 
             <p class="light">We did most of the heavy lifting for you to provide a default stylings that incorporate our custom components. Additionally, we refined animations and transitions to provide a smoother experience for developers.</p>
 
-            <ul class="collection">
-              <li class="collection-item avatar">
-                <img src="images/yuna.jpg" alt="" class="circle">
-                <span class="title">
-                  <a href="deals.html">Folds of Honor QuikTrip 500 NASCAR Sprint Cup</a>
-                </span>
-                <p>Sun, February 28 – Atlanta Motor Speedway</p>
-                <a href="deals.html" class="secondary-content waves-effect waves-light btn">From &#8369;160</a>
-              </li>
-              <li class="collection-item avatar">
-                <i class="material-icons circle">folder</i>
-                <span class="title">
-                  <a href="deals.html">Golden State Warriors at Atlanta Hawks</a>
-                </span>
-                <p>Philips Arena — Atlanta, GA on Mon Feb 22, 2016 at 8:00pm</p>
-                <a href="deals.html" class="secondary-content waves-effect waves-light btn">From &#8369;160</a>
-              </li>
-              <li class="collection-item avatar">
-                <i class="material-icons circle green">insert_chart</i>
-                <span class="title">
-                  <a href="deals.html">Golden State Warriors at Atlanta Hawks</a>
-                </span>
-                <p>Philips Arena — Atlanta, GA on Mon Feb 22, 2016 at 8:00pm</p>
-                <a href="deals.html" class="secondary-content waves-effect waves-light btn">From &#8369;160</a>
-              </li>
+            <ul class="collection" ng-repeat="v in ticket.data.ticketData.items">
               <li class="collection-item avatar">
                 <i class="material-icons circle red">play_arrow</i>
                 <span class="title">
-                  <a href="deals.html">Golden State Warriors at Atlanta Hawks</a>
+                  <a href="#/deals">{{v.event_name}}</a>
                 </span>
-                <p>Philips Arena — Atlanta, GA on Mon Feb 22, 2016 at 8:00pm</p>
-                <a href="deals.html" class="secondary-content waves-effect waves-light btn">From &#8369;160</a>
+                <span>
+                  <p date="date" schedDate="{{v.schedule_date}}"> </p>
+                  {{v.schedule_time}} – {{v.venue}}
+                </span>
+                <a href="#/deals" class="secondary-content waves-effect waves-light btn">From {{v.price | currency: "₱"}}</a>
               </li>
             </ul>
-
           </div>
         </div>
       </div>

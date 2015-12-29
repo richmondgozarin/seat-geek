@@ -3,14 +3,23 @@
 
   angular
     .module('app.controllers')
-    .controller('Main', mainCtrl);
+    .controller('TicketCtrl', ticketCtrl);
 
-  mainCtrl.$inject = [
-    '$scope',
+  ticketCtrl.$inject = [
+    'TicketModel',
+    '$scope'
   ];
 
-  function mainCtrl($scope) {
+  function ticketCtrl(TicketModel, $scope) {
     var main = this;
+
+    main.data = TicketModel;
+
+    function activate(){
+      TicketModel.ticketListing();
+    }
+
+    activate();
 
   }
 })(window.angular);

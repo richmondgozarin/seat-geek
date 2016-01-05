@@ -15,8 +15,11 @@
 </head>
 <body ng-app="app">
 
-  <div id="ng-view" ng-view></div>
-
+  <div id="wrapper">
+    <div id="content">
+      <div id="ng-view" ng-view></div>
+    </div>
+  </div>
   <footer class="page-footer teal">
     <div class="container">
       <div class="row">
@@ -41,6 +44,7 @@
       </div>
     </div>
   </footer>
+
 
   <!--Import jQuery before materialize.js-->
   <script src="/static/js/materialize.js"></script>

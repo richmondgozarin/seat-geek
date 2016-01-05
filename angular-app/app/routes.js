@@ -12,26 +12,38 @@
     $routeProvider
       .when('/main', {
         templateUrl: '/ng/templates/home.html',
-        controller: 'TicketCtrl',
-        controllerAs: 'ticket',
+        controller: 'EventCtrl',
+        controllerAs: 'event',
       })
 
-      .when('/deals', {
+      .when('/deals/:event_key', {
         templateUrl: '/ng/templates/deals.html',
-        controller: 'Deals',
+        controller: 'DealsCtrl',
         controllerAs: 'deals',
       })
 
-      .when('/checkout', {
+      .when('/checkout/:ticket_key', {
         templateUrl: '/ng/templates/checkout.html',
-        controller: 'Checkout',
-        controllerAs: 'checkout',
+        controller: 'DealsCtrl',
+        controllerAs: 'deals',
       })
 
       .when('/signup', {
         templateUrl: '/ng/templates/signup.html',
-        controller: 'Signup',
-        controllerAs: 'signup',
+        controller: 'AccountCtrl',
+        controllerAs: 'acct',
+      })
+
+      .when('/seller', {
+        templateUrl: '/ng/templates/seller.html',
+        controller: 'Seller',
+        controllerAs: 'seller',
+      })
+
+      .when('/login', {
+        templateUrl: '/ng/templates/login.html',
+        controller: 'Login',
+        controllerAs: 'login',
       })
 
       .otherwise({

@@ -16,7 +16,7 @@
     main.data = TicketModel;
 
     function activate(){
-      TicketModel.ticketListing();
+      TicketModel.eventListing();
     }
 
     activate();

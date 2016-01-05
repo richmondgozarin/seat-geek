@@ -3,24 +3,24 @@
 
     angular
         .module('app.services')
-        .service('TicketModel', mainModel);
+        .service('EventModel', eventModel);
 
-    mainModel.$inject = [
-        'TicketRest',
+    eventModel.$inject = [
+        'EventRest',
         'loading'
     ];
 
-    function mainModel(TicketRest, loading){
+    function eventModel(EventRest, loading){
         this.loading = loading.new();
-        this.ticketListing = tickets;
+        this.eventListing = events;
 
 
-        function tickets(){
+        function events(){
           var self = this;
-          self.loading.watch(TicketRest.list())
+          self.loading.watch(EventRest.list())
           .success(function(d){
             console.log(d);
-            self.ticketData = d;
+            self.eventData = d;
           })
         }
     }

@@ -1,11 +1,13 @@
 <nav class="orange" role="navigation">
     <div class="nav-wrapper container">
-      <a id="logo-container" href="#" class="brand-logo">SeatGeek</a>
+      <a id="logo-container" href="#" class="brand-logo">SeatNow</a>
       <ul class="right hide-on-med-and-down">
-        <li><a href="#/signup">Signup</a></li>
+        <li><a href="#/signup">Sign Up</a></li>
+        <li><a href="#/login">Login</a></li>
       </ul>
       <ul id="nav-mobile" class="side-nav" style="left: -250px;">
-        <li><a href="#/signup">Signup</a></li>
+        <li><a href="#/signup">Sign Up</a></li>
+        <li><a href="#/login">Login</a></li>
       </ul>
       <a href="#" data-activates="nav-mobile" class="button-collapse top-nav" data-sidenav="left" data-menuwidth="500"  data-closeonclick="true"><i class="material-icons">menu</i></a>
     </div>
@@ -45,17 +47,18 @@
 
             <p class="light">We did most of the heavy lifting for you to provide a default stylings that incorporate our custom components. Additionally, we refined animations and transitions to provide a smoother experience for developers.</p>
 
-            <ul class="collection" ng-repeat="v in ticket.data.ticketData.items">
+            <ul class="collection" ng-repeat="v in event.data.eventData.items">
               <li class="collection-item avatar">
                 <i class="material-icons circle red">play_arrow</i>
                 <span class="title">
                   <a href="#/deals">{{v.event_name}}</a>
                 </span>
                 <span>
-                  <p date="date" schedDate="{{v.schedule_date}}"> </p>
+                  <p>{{v.description}}</p>
+                  {{v.schedule_date.month | date : 'MMM'}} / {{v.schedule_date.day}} / {{v.schedule_date.year}} |
                   {{v.schedule_time}} – {{v.venue}}
                 </span>
-                <a href="#/deals" class="secondary-content waves-effect waves-light btn">From {{v.price | currency: "₱"}}</a>
+                <a href="#/deals/{{v.key.urlsafe}}" class="secondary-content waves-effect waves-light btn">Choose a seat {{v.price | currency: "₱"}}</a>
               </li>
             </ul>
           </div>

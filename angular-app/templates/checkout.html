@@ -1,6 +1,6 @@
   <nav class="orange" role="navigation">
     <div class="nav-wrapper container" style="width: 95%;">
-      <a id="logo-container" href="#" class="brand-logo">SeatGeek</a>
+      <a id="logo-container" href="#" class="brand-logo">SeatNow</a>
       <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
     </div>
   </nav>
@@ -29,7 +29,7 @@
               <tbody>
                 <tr>
                   <td>Price</td>
-                  <td>$1,034.70</td>
+                  <td>₱1,034.70</td>
                 </tr>
                 <tr>
                   <td>Quantity</td>
@@ -45,14 +45,21 @@
                 </tr>
                 <tr>
                   <td>Total</td>
-                  <td>$1,034.70</td>
+                  <td>₱1,034.70</td>
                 </tr>
               </tbody>
             </table>
 
             <p class="light">
-              <a href="#!" class="waves-effect waves-light btn">Buy Now</a>
-              <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/buy-logo-large.png" alt="Buy now with PayPal" />
+              <!-- <a href="#!" class="waves-effect waves-light btn">Buy Now</a> -->
+              <!-- <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/buy-logo-large.png" alt="Buy now with PayPal" /> -->
+              <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                <input type="hidden" name="cmd" value="_s-xclick">
+                <input type="hidden" name="hosted_button_id" value="2XF3MM7835ZVS">
+                <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+                <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+                </form>
+
             </p>
           </div>
         </div>

@@ -1,6 +1,6 @@
   <nav class="orange" role="navigation">
     <div class="nav-wrapper container" style="width: 95%;">
-      <a id="logo-container" href="#" class="brand-logo">SeatGeek</a>
+      <a id="logo-container" href="#" class="brand-logo">SeatNow</a>
       <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
     </div>
   </nav>
@@ -9,44 +9,25 @@
     <div class="section no-pad-bot">
       <div class="container" style="width: 95%; max-width:500px; margin-left: 20px;">
         <span class="title" >
-        <p class="black-text"><strong>Golden State Warriors at Atlanta Hawks</strong> <br/>
-        Philips Arena — Atlanta, GA on Mon Feb 22, 2016 at 8:00pm</p>
+        <p class="black-text"><strong>{{deals.model.details.event_name}}</strong> <br/>
+        {{deals.model.details.venue}} — {{deals.model.details.location}} on {{deals.model.details.schedule_date.month | date : 'MMM'}} {{deals.model.details.schedule_date.day}}, {{deals.model.details.schedule_date.year}} at {{deals.model.details.schedule_time}}</p>
         </span>
         <br><br>
         <ul class="collection with-header">
           <li class="collection-header black-text"><h6><strong>Great Deals</strong></h6></li>
-          <li class="collection-item avatar">
-            <img src="images/yuna.jpg" alt="" class="circle">
-            <span class="title">
-              <a href="#!">Section 225</a>
+          <li class="collection-item avatar" ng-if="deals.model.showDeals.length == 0">
+            <span class="black-text">
+             No available seat yet.
             </span>
-            <p class="black-text">2 e-tickets</p>
-            <img src="images/yuna.jpg" alt="" class="secondary-content"/>
-            <a href="#/checkout" class="secondary-content waves-effect waves-light btn">700/ea</a>
           </li>
-          <li class="collection-item avatar">
-            <i class="material-icons circle">circle</i>
-            <span class="title">
-              <a href="#!">Section 216</a>
-            </span>
-            <p class="black-text">4 e-tickets</p>
-            <a href="#/checkout" class="secondary-content waves-effect waves-light btn">800/ea</a>
-          </li>
-          <li class="collection-item avatar">
-            <i class="material-icons circle green">insert_chart</i>
-            <span class="title">
-              <a href="#!">Section 109</a>
-            </span>
-            <p class="black-text">3 e-tickets</p>
-            <a href="#/checkout" class="secondary-content waves-effect waves-light btn">1,100/ea</a>
-          </li>
-          <li class="collection-item avatar">
+
+          <li class="collection-item avatar" ng-repeat="v in deals.model.showDeals" ng-if="deals.model.showDeals.length > 0">
             <i class="material-icons circle red">play_arrow</i>
             <span class="title">
-              <a href="#!">Section 121</a>
+              <a href="#!">{{v.section}}</a>
             </span>
-            <p class="black-text">2 e-tickets</p>
-            <a href="#/checkout" class="secondary-content waves-effect waves-light btn">1,200/ea</a>
+            <p class="black-text">{{v.quantity}} e-tickets</p>
+            <a href="#/checkout/{{v.key.urlsafe}}" class="secondary-content waves-effect waves-light btn">{{v.price | currency: "₱"}}/ea</a>
           </li>
         </ul>
       </div>

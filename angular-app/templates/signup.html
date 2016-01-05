@@ -1,6 +1,6 @@
 <nav class="orange" role="navigation">
     <div class="nav-wrapper container">
-      <a id="logo-container" href="#" class="brand-logo">Sign up for SeatGeek</a>
+      <a id="logo-container" href="#" class="brand-logo">Sign up for SeatNow</a>
 
       <a href="#" data-activates="nav-mobile" class="button-collapse top-nav" data-sidenav="left" data-menuwidth="500"  data-closeonclick="true"><i class="material-icons">menu</i></a>
     </div>
@@ -8,36 +8,40 @@
 <div class="container">
   <div class="section">
     <div class="row">
-      <form class="col s12">
         <div class="row">
           <div class="input-field col s12">
-            <input id="email" type="email" class="validate">
+            <input id="email" type="email" ng-model="acct.model.email" class="validate">
             <label for="email">Email</label>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s6">
-            <input placeholder="" id="first_name" type="text" class="validate">
+            <input placeholder="" id="first_name" ng-model="acct.model.first_name" type="text" class="validate">
             <label for="first_name">First Name</label>
           </div>
           <div class="input-field col s6">
-            <input id="last_name" type="text" class="validate">
+            <input id="last_name" ng-model="acct.model.last_name" type="text" class="validate">
             <label for="last_name">Last Name</label>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s12">
-            <input id="password" type="password" class="validate">
+            <input id="password" type="password" ng-model="acct.model.password" class="validate">
             <label for="password">Password</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="conf_password" type="password" ng-model="acct.model.conf_password" class="validate">
+            <label for="password">Confirm Password</label>
           </div>
         </div>
 
         <div class="row">
           <div class="input-field col s12">
-            <button class="waves-effect waves-light btn">Submit</button>
+            <button class="waves-effect waves-light btn" ng-click="acct.model.create()">Sign Up</button>
           </div>
         </div>
-      </form>
     </div>
   </div>
 </div>

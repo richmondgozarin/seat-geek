@@ -6,6 +6,17 @@
  * Made By MaterializeCSS.com
  */
 
+
+html, body, #wrapper { height: 100%; }
+body > #wrapper { height: auto; min-height: 100%; }
+footer.page-footer {
+ clear: both;
+ position: relative;
+ z-index: 10;
+ margin-top: -3em;
+}
+#content { padding-bottom: 3em; }
+
 nav ul a,
 nav .brand-logo {
   color: #444;
@@ -52,6 +63,3 @@ p {
   /*font-size: inherit;*/
 }
 
-footer.page-footer {
-  margin: 0;
-}

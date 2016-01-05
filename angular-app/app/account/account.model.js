@@ -44,7 +44,7 @@
           .success(function(d){
             console.log(d);
             alert('Registration Completed.');
-            window.location = "/#/main";
+            window.location = "/#/seller";
           });
 
           self.loading

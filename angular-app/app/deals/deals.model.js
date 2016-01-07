@@ -20,7 +20,7 @@
           var call1 = DealRest.get(e_key)
           .success(function(d){
             console.log(d);
-            self.showDeals = d.items || [];
+            self.showDeals = d.tickets || [];
           });
 
           var call2 = DealRest.get_details(e_key)

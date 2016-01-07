@@ -11,18 +11,39 @@
     ];
 
     function eventModel(EventRest, loading){
-        this.loading = loading.new();
-        this.eventListing = events;
 
+        function Event(data) {
+            this._dbSaved = null;
+            this.isLoading = loading.new();
+        }
 
-        function events(){
+        Event.loading = loading.new();
+        Event.listing = listing;
+        Event.search = search;
+        Event.keyword = null;
+
+        function listing(){
           var self = this;
           self.loading.watch(EventRest.list())
           .success(function(d){
             console.log(d);
-            self.eventData = d;
+            self.lists = d.events;
           })
         }
+
+        function search(){
+          var self = this;
+          self.loading.watch(EventRest.search(Event.keyword))
+          .success(function(d){
+            console.log(d);
+            self.found = d.events || [];
+          })
+          .error(function(d){
+            self.found = 'Keyword not found.';
+          });
+        }
+
+        return Event
     }
 
 })(window.angular);

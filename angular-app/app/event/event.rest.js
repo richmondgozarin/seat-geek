@@ -21,6 +21,10 @@
       return $http.get(base_url + '/get_tickets' + '/:' + a_key);
     };
 
+    this.search = function(keyword) {
+      return $http.get(base_url + '/search' + '/:' + keyword);
+    };
+
     this.create = function(params) {
       return $http.post(base_url, params);
     };

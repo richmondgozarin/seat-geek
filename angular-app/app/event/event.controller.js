@@ -10,13 +10,13 @@
     '$scope'
   ];
 
-  function eventCtrl(EventModel, $scope) {
+  function eventCtrl(Event, $scope) {
     var main = this;
 
-    main.data = EventModel;
+    main.model = Event;
 
     function activate(){
-      EventModel.eventListing();
+      Event.listing();
     }
 
     activate();

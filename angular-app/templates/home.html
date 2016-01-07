@@ -18,15 +18,22 @@
       <div class="container">
         <br><br>
         <h1 class="header center text-lighten-2">Millions of tickets in one place.</h1>
-        <nav class="orange">
+        <nav class="search-bar orange">
           <div class="nav-wrapper">
-            <form>
-              <div class="input-field">
-                <input id="search" type="search" required placeholder="Search by artist, event or venue">
-                <label for="search"><i class="material-icons">search</i></label>
-                <i class="material-icons">close</i>
+            <div class="input-field">
+              <input id="search" type="search" required placeholder="Search by artist, event or venue"
+                  ng-keyup="$event.keyCode == 13 ? event.model.search() : null" ng-model="event.model.keyword" />
+              <label for="search"><i class="material-icons">search</i></label>
+              <i class="material-icons">close</i>
+              <div class="search-results" ng-repeat="res in event.model.found">
+                <a href="#/deals/{{res.key.urlsafe}}">
+                  <p>
+                    <h4>{{res.event_name}}</h4>
+                    {{res.venue}} on {{res.schedule_date.month | date : 'MMM'}} {{res.schedule_date.day | date : 'dd'}}, {{res.schedule_date.year}}
+                  </p>
+                </a>
               </div>
-            </form>
+            </div>
           </div>
         </nav>
 
@@ -46,18 +53,18 @@
 
             <p class="light">We did most of the heavy lifting for you to provide a default stylings that incorporate our custom components. Additionally, we refined animations and transitions to provide a smoother experience for developers.</p>
 
-            <ul class="collection" ng-repeat="v in event.data.eventData.items">
+            <ul class="collection" ng-repeat="v in event.model.lists">
               <li class="collection-item avatar">
                 <i class="material-icons circle red">play_arrow</i>
                 <span class="title">
-                  <a href="#/deals">{{v.event_name}}</a>
+                  <a target="_blank" href="{{v.external_link}}">{{v.event_name}}</a>
                 </span>
                 <span>
                   <p>{{v.description}}</p>
-                  {{v.schedule_date.month | date : 'MMM'}} / {{v.schedule_date.day}} / {{v.schedule_date.year}} |
+                  {{v.schedule_date | date : 'MMM d, y'}} |
                   {{v.schedule_time}} – {{v.venue}}
                 </span>
-                <a href="#/deals/{{v.key.urlsafe}}" class="secondary-content waves-effect waves-light btn">Choose a seat {{v.price | currency: "₱"}}</a>
+                <a href="#/deals/{{v.key}}" class="secondary-content waves-effect waves-light btn">Choose deals {{v.price | currency: "₱"}}</a>
               </li>
             </ul>
           </div>

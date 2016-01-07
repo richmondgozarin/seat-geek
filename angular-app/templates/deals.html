@@ -11,8 +11,8 @@
       <div class="row">
         <div class="col s6">
           <span class="title" >
-          <p class="black-text"><strong>{{deals.model.details.event_name}}</strong> <br/>
-          {{deals.model.details.venue}} — {{deals.model.details.location}} on {{deals.model.details.schedule_date.month | date : 'MMM'}} {{deals.model.details.schedule_date.day}}, {{deals.model.details.schedule_date.year}} at {{deals.model.details.schedule_time}}</p>
+          <p class="black-text"><strong>{{deals.model.details[0].event_name}}</strong> <br/>
+          {{deals.model.details[0].venue}} — {{deals.model.details[0].location}} on {{deals.model.details[0].schedule_date}} at {{deals.model.details[0].schedule_time}}</p>
           </span>
         </div>
         <div class="col s6">

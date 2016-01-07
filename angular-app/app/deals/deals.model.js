@@ -7,11 +7,12 @@
 
     dealsModel.$inject = [
         'DealRest',
+        'EventRest',
         'loading',
         '$q'
     ];
 
-    function dealsModel(DealRest, loading, $q){
+    function dealsModel(DealRest, EventRest, loading, $q){
         this.loading = loading.new();
         this.dealListing = deals;
 
@@ -23,9 +24,9 @@
             self.showDeals = d.tickets || [];
           });
 
-          var call2 = DealRest.get_details(e_key)
+          var call2 = EventRest.get_details(e_key)
             .success(function(d){
-                self.details = d || [];
+                self.details = d.events || [];
                 console.log(self.details);
             });
 

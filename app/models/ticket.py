@@ -1,26 +1,26 @@
-from ferris import BasicModel, ndb
+from ferris import BasicModel, ndb, messages
 from google.appengine.api import mail, app_identity
+from app.models.id_tracker import IdTracker
 APP_ID = app_identity.get_application_id()
 
 
 class Ticket(BasicModel):
-    event_id = ndb.StringProperty(indexed=False)
-    scalper_name = ndb.StringProperty(indexed=True)
-    event_name = ndb.StringProperty(indexed=True)
-    event_description = ndb.StringProperty(indexed=True)
-    schedule_date = ndb.DateProperty(indexed=True)
-    schedule_time = ndb.StringProperty(indexed=True)
+    event = ndb.KeyProperty(kind='Event', indexed=True)
+    scalper_name = ndb.KeyProperty(kind='Account', indexed=True)
+    ticket_img = ndb.BlobKeyProperty()
     section = ndb.StringProperty(indexed=True)
-    quantity = ndb.IntegerProperty(indexed=False)
+    quantity = ndb.IntegerProperty(indexed=True)
     price = ndb.FloatProperty(indexed=True)
-    venue = ndb.StringProperty(indexed=True)
+    sold = ndb.BooleanProperty(default=False, indexed=True)
 
     @classmethod
     def list_all(cls):
-        return cls.query()
+        return cls.query().order(cls.price)
 
     @classmethod
     def create(cls, params):
+        params['event'] = ndb.Key(urlsafe=params['event'])
+        params['ticket_number'] = IdTracker.generate_number('ticket')
         item = cls()
         item.populate(**params)
         item.put()
@@ -32,20 +32,44 @@ class Ticket(BasicModel):
             Ticket.query().fetch(keys_only=True)
         )
 
-    # @staticmethod
-    # def success_notification(selectedEmail, event_summary, event_link):
+    @classmethod
+    def find_tickets(cls, key):
+        csas = cls.find_all_by_event(key).order(cls.price)
+        tickets = [cls.buildTicket(event) for event in csas]
+        return CompletedTickets(tickets=tickets)
 
-    #     subject = "Ticket Subject"
-    #     body = """
-    #      Hello,
+    @classmethod
+    def buildTicket(cls, ticket):
+        return TicketMessage(
+            section=ticket.section,
+            quantity=ticket.quantity,
+            price=ticket.price,
+            scalper_name=cls.buildScalpers(ticket.scalper_name.get()),
+            sold=ticket.sold
+        )
 
-    #         This notice is to let you know that "%s" the owner of the "%s" has been removed from our systems.
-    #         Please review this event and make different plans if necessary.
+    @classmethod
+    def buildScalpers(cls, name):
+        return ScalperMessage(
+            key=name.key.urlsafe(),
+            first_name=name.first_name,
+            last_name=name.last_name
+        )
 
-    #         %s
 
-    #     Thanks,
-    #     Arista IT
-    #     """ % (selectedEmail, event_summary, event_link)
+class ScalperMessage(messages.Message):
+    key = messages.StringField(1)
+    first_name = messages.StringField(2)
+    last_name = messages.StringField(3)
 
-    #     mail.send_mail(oauth_config['default_user'], notifications_recipient['email'], subject, body)
+
+class TicketMessage(messages.Message):
+    section = messages.StringField(1)
+    quantity = messages.IntegerField(2)
+    scalper_name = messages.MessageField(ScalperMessage, 3)
+    price = messages.FloatField(4)
+    sold = messages.BooleanField(5)
+
+
+class CompletedTickets(messages.Message):
+    tickets = messages.MessageField(TicketMessage, 1, repeated=True)

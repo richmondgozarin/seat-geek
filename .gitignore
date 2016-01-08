@@ -1,0 +1,11 @@
+*.pyc
+ds
+*.coverage
+*~
+test_settings.py
+*.Icon
+.appengine_data
+*.orig
+
+## Webstorm:
+.idea/

@@ -31,7 +31,7 @@
               </span>
               <p class="black-text">{{v.quantity}} e-tickets</p>
               <p class="secondary-content black-text" style="right:260px;">{{v.scalper_name.last_name}}</p>
-              <a href="#/checkout/{{v.key.urlsafe}}" class="secondary-content waves-effect waves-light btn">{{v.price | currency: "₱"}}/ea</a>
+              <a href="#/checkout/{{v.key}}" class="secondary-content waves-effect waves-light btn">{{v.price | currency: "₱"}}/ea</a>
             </li>
           </ul>
         </div>

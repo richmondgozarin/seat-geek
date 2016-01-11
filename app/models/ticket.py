@@ -41,6 +41,7 @@ class Ticket(BasicModel):
     @classmethod
     def buildTicket(cls, ticket):
         return TicketMessage(
+            key=ticket.key.urlsafe(),
             section=ticket.section,
             quantity=ticket.quantity,
             price=ticket.price,
@@ -64,11 +65,12 @@ class ScalperMessage(messages.Message):
 
 
 class TicketMessage(messages.Message):
-    section = messages.StringField(1)
-    quantity = messages.IntegerField(2)
-    scalper_name = messages.MessageField(ScalperMessage, 3)
-    price = messages.FloatField(4)
-    sold = messages.BooleanField(5)
+    key = messages.StringField(1)
+    section = messages.StringField(2)
+    quantity = messages.IntegerField(3)
+    scalper_name = messages.MessageField(ScalperMessage, 4)
+    price = messages.FloatField(5)
+    sold = messages.BooleanField(6)
 
 
 class CompletedTickets(messages.Message):

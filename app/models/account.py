@@ -28,3 +28,17 @@ class Account(BasicModel):
         ndb.delete_multi(
             Account.query().fetch(keys_only=True)
         )
+
+    @classmethod
+    def get(cls, key_name, key_only=False):
+        if not key_name:
+            return None
+        key = ndb.Key(cls, format_key_name(key_name))
+        ret = key.get()
+        if key_only:
+            return key if ret else None
+        return ret
+
+
+def format_key_name(key_name):
+    return str(key_name).replace(' ', '_').lower()

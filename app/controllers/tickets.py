@@ -3,7 +3,7 @@ from ferris.components.pagination import Pagination
 from ferris.components.upload import Upload
 from app.models.ticket import Ticket
 from app.models.event import Event
-import braintree
+# import braintree
 import logging
 
 
@@ -31,23 +31,23 @@ class Tickets(Controller):
         self.context['data'] = deals
 
 
-    @classmethod
-    def braintree(self):
-        braintree.Configuration.configure(
-            braintree.Environment.Sandbox,
-            'kqg558ff2r98njfx',
-            'dqq36p9vf7nprsxz',
-            '5d570f06244e40d9d2a78159edb748ab'
-        )
+    # @classmethod
+    # def braintree(self):
+    #     braintree.Configuration.configure(
+    #         braintree.Environment.Sandbox,
+    #         'kqg558ff2r98njfx',
+    #         'dqq36p9vf7nprsxz',
+    #         '5d570f06244e40d9d2a78159edb748ab'
+    #     )
 
-    @route_with("/api/braintree/client_token", methods=["GET"])
-    def client_token():
-        return braintree.ClientToken.generate()
+    # @route_with("/api/braintree/client_token", methods=["GET"])
+    # def client_token():
+    #     return braintree.ClientToken.generate()
 
-    @route_with("/api/braintree/checkout", methods=["POST"])
-    def create_purchase():
-      nonce = request.form["payment_method_nonce"]
-      result = braintree.Transaction.sale({
-        "amount": "10.00",
-        "payment_method_nonce": nonce_from_the_client
-    })
+    # @route_with("/api/braintree/checkout", methods=["POST"])
+    # def create_purchase():
+    #   nonce = request.form["payment_method_nonce"]
+    #   result = braintree.Transaction.sale({
+    #     "amount": "10.00",
+    #     "payment_method_nonce": nonce_from_the_client
+    # })

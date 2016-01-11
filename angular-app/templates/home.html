@@ -26,10 +26,10 @@
               <label for="search"><i class="material-icons">search</i></label>
               <i class="material-icons">close</i>
               <div class="search-results" ng-repeat="res in event.model.found">
-                <a href="#/deals/{{res.key.urlsafe}}">
+                <a href="#/deals/{{res.key}}">
                   <p>
                     <h4>{{res.event_name}}</h4>
-                    {{res.venue}} on {{res.schedule_date.month | date : 'MMM'}} {{res.schedule_date.day | date : 'dd'}}, {{res.schedule_date.year}}
+                    {{res.venue}} on {{res.schedule_date | date : 'MMM d, y'}}
                   </p>
                 </a>
               </div>

@@ -38,7 +38,7 @@ class Event(BasicModel):
     @classmethod
     def list_all(cls):
         csas = cls.query()
-        events = [cls.buildTicket(event) for event in csas]
+        events = [cls.buildEvent(event) for event in csas]
         return CompletedEvents(events = events)
 
     @classmethod
@@ -67,23 +67,24 @@ class Event(BasicModel):
             results = query.fetch(limit, keys_only=True)
             results = ndb.get_multi([x.parent() for x in results])
 
-            return results
+            events = [cls.buildEvent(event) for event in results]
+            return CompletedEvents(events = events)
         except urllib2.HttpError, e:
             return []
 
     @classmethod
     def find_events(cls, key):
         csas = cls.find_all_by_event(key).order(cls.price)
-        events = [cls.buildTicket(event) for event in csas]
+        events = [cls.buildEvent(event) for event in csas]
         return CompletedEvents(events=events)
 
     @classmethod
     def find_event(cls, event):
-        events = [cls.buildTicket(event)]
+        events = [cls.buildEvent(event)]
         return CompletedEvents(events=events)
 
     @classmethod
-    def buildTicket(cls, event):
+    def buildEvent(cls, event):
         return EventMessage(
             key=event.key.urlsafe(),
             event_name=event.event_name,

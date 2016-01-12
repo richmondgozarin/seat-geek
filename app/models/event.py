@@ -73,12 +73,6 @@ class Event(BasicModel):
             return []
 
     @classmethod
-    def find_events(cls, key):
-        csas = cls.find_all_by_event(key).order(cls.price)
-        events = [cls.buildEvent(event) for event in csas]
-        return CompletedEvents(events=events)
-
-    @classmethod
     def find_event(cls, event):
         events = [cls.buildEvent(event)]
         return CompletedEvents(events=events)
@@ -130,8 +124,8 @@ class EventMessage(messages.Message):
     location = messages.StringField(6)
     external_link = messages.StringField(7)
     key = messages.StringField(10)
-    # photo = messages.StringField(8)
-    # seat_map = messages.StringField(9)
+    # photo = messages.BytesField(8)
+    # seat_map = messages.BytesField(9)
 
 
 class CompletedEvents(messages.Message):

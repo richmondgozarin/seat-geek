@@ -35,6 +35,6 @@ class Events(Controller):
     @route_with('/api/events/image_url', methods=['GET'])
     def api_uploads(self):
         uploads = self.components.upload.get_uploads()
-        # for blobinfo in uploads:
-        #     logging.info(blobinfo.filename)
-        self.context['data'] = uploads
+        for blobinfo in uploads:
+            logging.info(blobinfo.filename)
+        return 200

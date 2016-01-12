@@ -24,12 +24,18 @@ class Tickets(Controller):
     def api_list(self):
         self.context['data'] = Ticket.list_all()
 
-    @route_with('/api/tickets/:<e_key>/deals', methods=['GET'])
-    def api_get_tickets(self, e_key=None):
-        deal = self.util.decode_key(e_key).get()
+    @route_with('/api/tickets/:<tckt_key>/deals', methods=['GET'])
+    def api_get_ticket(self, tckt_key=None):
+        deal = self.util.decode_key(tckt_key).get()
         deals = Ticket.find_tickets(deal.key)
         self.context['data'] = deals
 
+    @route_with('/api/tickets/:<tckt_key>/details', methods=['GET'])
+    def api_get_details(self, tckt_key=None):
+        ticket = self.util.decode_key(tckt_key).get()
+        logging.info('===TICKETS == %s' % ticket)
+        info = Ticket.to_message(ticket)
+        self.context['data'] = info
 
     # @classmethod
     # def braintree(self):

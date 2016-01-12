@@ -1,4 +1,4 @@
-from ferris import BasicModel, ndb
+from ferris import BasicModel, ndb, messages
 from google.appengine.api import app_identity
 APP_ID = app_identity.get_application_id()
 
@@ -39,6 +39,21 @@ class Account(BasicModel):
             return key if ret else None
         return ret
 
+    @staticmethod
+    def transform_message(cls, entity):
+        return EventMessage(
+
+            first_name=entity.first_name,
+            last_name=entity.last_name,
+            email=entity.email
+        )
+
 
 def format_key_name(key_name):
     return str(key_name).replace(' ', '_').lower()
+
+
+class EventMessage(messages.Message):
+    first_name = messages.StringField(2)
+    last_name = messages.StringField(3)
+    email = messages.StringField(4)

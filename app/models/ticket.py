@@ -1,6 +1,7 @@
 from ferris import BasicModel, ndb, messages
 from google.appengine.api import mail, app_identity
 from app.models.id_tracker import IdTracker
+from app.models.event import Event, EventMessage
 APP_ID = app_identity.get_application_id()
 
 
@@ -35,7 +36,12 @@ class Ticket(BasicModel):
     @classmethod
     def find_tickets(cls, key):
         csas = cls.find_all_by_event(key).order(cls.price)
-        tickets = [cls.buildTicket(event) for event in csas]
+        tickets = [cls.buildTicket(ticket) for ticket in csas]
+        return CompletedTickets(tickets=tickets)
+
+    @classmethod
+    def to_message(cls, entity):
+        tickets = [cls.buildTicket(entity)]
         return CompletedTickets(tickets=tickets)
 
     @classmethod
@@ -46,7 +52,8 @@ class Ticket(BasicModel):
             quantity=ticket.quantity,
             price=ticket.price,
             scalper_name=cls.buildScalpers(ticket.scalper_name.get()),
-            sold=ticket.sold
+            sold=ticket.sold,
+            event=Event.buildEvent(ticket.event.get())
         )
 
     @classmethod
@@ -71,6 +78,7 @@ class TicketMessage(messages.Message):
     scalper_name = messages.MessageField(ScalperMessage, 4)
     price = messages.FloatField(5)
     sold = messages.BooleanField(6)
+    event = messages.MessageField(EventMessage, 7)
 
 
 class CompletedTickets(messages.Message):

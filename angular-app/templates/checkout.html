@@ -11,10 +11,15 @@
       <div class="row">
         <div class="col s12">
           <div class="icon-block">
-            <h5 class="center">You are buying tickets from ticket net through SeatGeek.</h5>
+            <h5 class="center">You are buying tickets through SeatGeek.</h5>
 
 
-            <p class="light">Fri, December 25 at 2:00pm <br/> Oracle Arena – Oakland, CA <br /> <strong>Section 216, Row 17</strong></p>
+            <p class="light" ><strong>{{ticket.model.details.event.event_name}}</strong> <br/>
+              {{ticket.model.details.event.schedule_date}} at {{ticket.model.details.event.schedule_time}} <br/> {{ticket.model.details.event.venue}} {{ticket.model.details.event.location}} <br />
+              <!-- <strong>Section 216, Row 17</strong> -->
+            </p>
+
+          </span>
 
             <br />
             <br />
@@ -29,19 +34,21 @@
               <tbody>
                 <tr>
                   <td>Price</td>
-                  <td>₱1,034.70</td>
+                  <td>{{ticket.model.details.price | currency: "₱"}}</td>
                 </tr>
                 <tr>
                   <td>Quantity</td>
                   <td>
                     <div>
                       <select class="browser-default">
-                        <option value="2" selected>2 Tickets</option>
-                        <option value="3">3 Tickets</option>
-                        <option value="4">4 Tickets</option>
+                        <option value="2" selected>{{ticket.model.details.quantity}} Tickets</option>
                       </select>
                     </div>
                   </td>
+                </tr>
+                <tr>
+                  <td>Service Charge</td>
+                  <td>10%</td>
                 </tr>
                 <tr>
                   <td>Total</td>

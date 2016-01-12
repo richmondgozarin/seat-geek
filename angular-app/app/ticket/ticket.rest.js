@@ -17,8 +17,12 @@
       return $http.get(base_url);
     };
 
-    this.get = function(a_key) {
-      return $http.get(base_url + '/get_tickets' + '/:' + a_key);
+    this.get = function(tckt_key) {
+      return $http.get(base_url + '/:' + tckt_key + '/list');
+    };
+
+    this.get_details = function(tckt_key) {
+      return $http.get(base_url + '/:' + tckt_key + '/details');
     };
 
     this.create = function(params) {

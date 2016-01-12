@@ -44,11 +44,6 @@
       </div>
     </div>
   </footer>
-  <form id="checkout" method="post" action="/checkout">
-  <div id="payment-form"></div>
-  <input type="submit" value="Pay $10">
-</form>
-
 
 <script>
 // We generated a client token for you so you can test out this code
@@ -59,7 +54,17 @@ var clientToken = "eyJ2ZXJzaW9uIjoyLCJhdXRob3JpemF0aW9uRmluZ2VycHJpbnQiOiI1MGM1M
 /*braintree.setup(clientToken, "dropin", {
   container: "payment-form"
 });*/
-</script>
+
+var active_user = {{active_user}};
+  var logout_url = "{{logout_url}}";
+  $( "#logout" ).click(function() {
+    // alert( "Handler for .click() called." );
+    window.location.replace(logout_url);
+  });
+  var userName = null;
+  (typeof(active_user.first_name) !== 'undefined') ? userName=active_user.first_name : userName=active_user.email;
+  document.getElementById('user_name').text = "Hi " + userName + "!";
+  </script>
 
   <!--Import jQuery before materialize.js-->
   <script src="/static/js/materialize.js"></script>

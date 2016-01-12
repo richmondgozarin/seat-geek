@@ -7,16 +7,20 @@
 
   ticketCtrl.$inject = [
     'TicketModel',
-    '$scope'
+    '$scope',
+    '$routeParams'
   ];
 
-  function ticketCtrl(TicketModel, $scope) {
-    var main = this;
+  function ticketCtrl(TicketModel, $scope, routeParams) {
+    var ticket = this;
 
-    main.data = TicketModel;
+    ticket.model = TicketModel;
 
     function activate(){
-      TicketModel.eventListing();
+      TicketModel.ticketListing();
+      if (routeParams.ticket_key){
+        TicketModel.details(routeParams.ticket_key);
+      }
     }
 
     activate();

@@ -21,7 +21,7 @@
         <nav class="search-bar orange">
           <div class="nav-wrapper">
             <div class="input-field">
-              <input id="search" type="search" required placeholder="Search by artist, event or venue"
+              <input id="search" type="search" required autocomplete="off" placeholder="Search by artist, event or venue"
                   ng-keyup="$event.keyCode == 13 ? event.model.search() : null" ng-model="event.model.keyword" />
               <label for="search"><i class="material-icons">search</i></label>
               <i class="material-icons">close</i>

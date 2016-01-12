@@ -24,14 +24,14 @@
               </span>
             </li>
 
-            <li class="collection-item avatar" ng-repeat="v in deals.model.showDeals" ng-if="deals.model.showDeals.length > 0">
+            <li class="collection-item avatar" ng-repeat="ticket in deals.model.showDeals" ng-if="deals.model.showDeals.length > 0">
               <i class="material-icons circle red">play_arrow</i>
               <span class="title">
-                <a href="#!">{{v.section}}</a>
+                <a href="#!">{{ticket.section}}</a>
               </span>
-              <p class="black-text">{{v.quantity}} e-tickets</p>
-              <p class="secondary-content black-text" style="right:260px;">{{v.scalper_name.last_name}}</p>
-              <a href="#/checkout/{{v.key}}" class="secondary-content waves-effect waves-light btn">{{v.price | currency: "₱"}}/ea</a>
+              <p class="black-text">{{ticket.quantity}} e-tickets</p>
+              <p class="secondary-content black-text" style="right:260px;">{{ticket.scalper_name.last_name}}</p>
+              <a href="#/checkout/{{ticket.key}}" class="secondary-content waves-effect waves-light btn">{{ticket.price | currency: "₱"}}/ea</a>
             </li>
           </ul>
         </div>

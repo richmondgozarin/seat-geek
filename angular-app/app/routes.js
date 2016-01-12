@@ -24,8 +24,8 @@
 
       .when('/checkout/:ticket_key', {
         templateUrl: '/ng/templates/checkout.html',
-        controller: 'DealsCtrl',
-        controllerAs: 'deals',
+        controller: 'TicketCtrl',
+        controllerAs: 'ticket',
       })
 
       .when('/signup', {

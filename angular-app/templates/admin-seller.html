@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="section">
+    <div class="row" style="margin-bottom:20%;">
+      <div class="icon-block">
+        <div class="col s6">
+          <ul class="collection with-header">
+            <li class="collection-header black-text"><h6><strong>Your Tickets</strong></h6></li>
+
+            <li class="collection-item avatar" ng-repeat="ticket in seller.model.showDeals" ng-if="seller.model.showDeals.length > 0" style="padding-left: 20px;">
+              <span class="title">
+                <a href="#!">{{ticket.section}}</a>
+              </span>
+              <p class="black-text">{{ticket.quantity}} e-tickets</p>
+              <p class="secondary-content black-text" style="right:260px;">{{ticket.scalper_name.last_name}}</p>
+              <a href="#/checkout/{{ticket.key}}" class="secondary-content waves-effect waves-light btn">{{ticket.price | currency: "₱"}}/ea</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

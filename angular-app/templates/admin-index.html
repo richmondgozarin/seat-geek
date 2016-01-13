@@ -3,20 +3,36 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
-  <title>Seat Now</title>
+  <title>Seat Now - Admin -</title>
 
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="/static/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="/static/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <!--  Scripts-->
-  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="/ng/components/jquery/dist/jquery.min.js"></script>
 
 </head>
 <body ng-app="app">
 
   <div id="wrapper">
     <div id="content">
+       <nav class="orange" role="navigation">
+        <div class="nav-wrapper container">
+          <a id="logo-container" href="#" class="brand-logo">SeatNow</a>
+
+          <ul class="right hide-on-med-and-down">
+            <li><a href="#/profile" id="user_name"></a></li>
+            <li><a href="#/seller">Sell</a></li>
+            <li><a href="" class="logout"><i class="mdi-action-exit-to-app"></i></a></li>
+          </ul>
+          <ul id="nav-mobile" class="side-nav" style="left: -250px;">
+            <li><a href="#/profile">Profile</a></li>
+            <li><a href="" class="logout"><i class="mdi-action-exit-to-app"></i></a></li>
+          </ul>
+          <a href="#" data-activates="nav-mobile" class="button-collapse top-nav" data-sidenav="left" data-menuwidth="500"  data-closeonclick="true"><i class="material-icons">menu</i></a>
+        </div>
+      </nav>
       <div id="ng-view" ng-view></div>
     </div>
   </div>
@@ -44,19 +60,18 @@
       </div>
     </div>
   </footer>
-  <form id="checkout" method="post" action="/checkout">
-  <div id="payment-form"></div>
-  <input type="submit" value="Pay $10">
-</form>
+
 
 
   <script type="text/javascript">
     var active_user = {{active_user}};
     var logout_url = "{{logout_url}}";
-    $( "#logout" ).click(function() {
+    $( "#content .logout" ).click(function() {
+      /*alert( "Handler for .click() called." );*/
       window.location.replace(logout_url);
     });
     var userName = null;
+    var greeter = "";
     (typeof(active_user.first_name) !== 'undefined') ? userName=active_user.first_name : userName=active_user.email;
     document.getElementById('user_name').text = "Hi " + userName + "!";
   </script>
@@ -80,8 +95,12 @@
   <script src="https://js.braintreegateway.com/v2/braintree.js"></script>
 
   <!-- Application Code -->
-  <script src="/ng/app/module.js"></script>
-  <script src="/ng/app/routes.js"></script>
+  <script src="/ng/admin/module.js"></script>
+  <script src="/ng/admin/routes.js"></script>
+
+  <script src="/ng/admin/admin/admin.rest.js"></script>
+  <script src="/ng/admin/admin/admin.model.js"></script>
+  <script src="/ng/admin/admin/admin.controller.js"></script>
 
   <script src="/ng/app/event/event.rest.js"></script>
   <script src="/ng/app/event/event.model.js"></script>
@@ -91,13 +110,17 @@
   <script src="/ng/app/deals/deals.model.js"></script>
   <script src="/ng/app/deals/deals.controller.js"></script>
 
-  <script src="/ng/app/account/account.rest.js"></script>
-  <script src="/ng/app/account/account.model.js"></script>
-  <script src="/ng/app/account/account.controller.js"></script>
-
   <script src="/ng/app/ticket/ticket.rest.js"></script>
   <script src="/ng/app/ticket/ticket.model.js"></script>
   <script src="/ng/app/ticket/ticket.controller.js"></script>
+
+  <script src="/ng/admin/seller/seller.rest.js"></script>
+  <script src="/ng/admin/seller/seller.model.js"></script>
+  <script src="/ng/admin/seller/seller.controller.js"></script>
+
+  <script src="/ng/admin/account/account.rest.js"></script>
+  <script src="/ng/admin/account/account.model.js"></script>
+  <script src="/ng/admin/account/account.controller.js"></script>
 
   <script src="/ng/directives/date.directive.js"></script>
 

@@ -10,8 +10,8 @@
   function routes($routeProvider, $locationProvider) {
 
     $routeProvider
-      .when('/main', {
-        templateUrl: '/ng/templates/home.html',
+      .when('/home', {
+        templateUrl: '/ng/templates/admin-home.html',
         controller: 'EventCtrl',
         controllerAs: 'event',
       })
@@ -34,14 +34,20 @@
         controllerAs: 'acct',
       })
 
+      .when('/seller', {
+        templateUrl: '/ng/templates/admin-seller.html',
+        controller: 'SellerCtrl',
+        controllerAs: 'seller',
+      })
+
       .when('/login', {
         templateUrl: '/ng/templates/login.html',
-        controller: 'Login',
-        controllerAs: 'login',
+        controller: 'AccountCtrl',
+        controllerAs: 'acct',
       })
 
       .otherwise({
-        redirectTo: '/main',
+        redirectTo: '/home',
       });
 
     $locationProvider.html5Mode(false);

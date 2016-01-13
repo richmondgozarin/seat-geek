@@ -10,7 +10,6 @@
   <link href="/static/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="/static/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <!--  Scripts-->
-  <!-- <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script> -->
   <script src="/ng/components/jquery/dist/jquery.min.js"></script>
 </head>
 <body ng-app="app">
@@ -18,6 +17,20 @@
   <div id="wrapper">
 
     <div id="content">
+      <nav class="orange" role="navigation">
+        <div class="nav-wrapper container">
+          <a id="logo-container" href="#" class="brand-logo">SeatNow</a>
+          <ul class="right hide-on-med-and-down">
+            <li><a href="#/profile" id="user_name"></a></li>
+            <li><a href="" class="logout"><i class="mdi-action-exit-to-app"></i></a></li>
+          </ul>
+          <ul id="nav-mobile" class="side-nav" style="left: -250px;">
+            <li><a href="#/profile">Profile</a></li>
+            <li><a href="" class="logout"><i class="mdi-action-exit-to-app"></i></a></li>
+          </ul>
+          <a href="#" data-activates="nav-mobile" class="button-collapse top-nav" data-sidenav="left" data-menuwidth="500"  data-closeonclick="true"><i class="material-icons">menu</i></a>
+        </div>
+      </nav>
       <div id="ng-view" ng-view></div>
     </div>
   </div>
@@ -46,17 +59,17 @@
     </div>
   </footer>
 
-<script type="text/javascript">
-  var active_user = {{active_user}};
-  var logout_url = "{{logout_url}}";
-  $( "#ng-view .logout" ).click(function() {
-    alert( "Handler for .click() called." );
-    window.location.replace(logout_url);
-  });
-  var userName = null;
-  var greeter = "";
-  (typeof(active_user.first_name) !== 'undefined') ? userName=active_user.first_name : userName=active_user.email;
-  greeter = "Hi " + userName + "!";
+  <script type="text/javascript">
+    var active_user = {{active_user}};
+    var logout_url = "{{logout_url}}";
+    $( "#content .logout" ).click(function() {
+      /*alert( "Handler for .click() called." );*/
+      window.location.replace(logout_url);
+    });
+    var userName = null;
+    var greeter = "";
+    (typeof(active_user.first_name) !== 'undefined') ? userName=active_user.first_name : userName=active_user.email;
+    document.getElementById('user_name').text = "Hi " + userName + "!";
   </script>
 
   <!--Import jQuery before materialize.js-->

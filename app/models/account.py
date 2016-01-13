@@ -30,17 +30,14 @@ class Account(BasicModel):
         )
 
     @classmethod
-    def get(cls, key_name, key_only=False):
-        if not key_name:
+    def get(cls, key_name=None):
+        if key_name:
+            return cls.find_by_email(key_name)
+        else:
             return None
-        key = ndb.Key(cls, format_key_name(key_name))
-        ret = key.get()
-        if key_only:
-            return key if ret else None
-        return ret
 
     @staticmethod
-    def transform_message(cls, entity):
+    def transform_message(entity):
         return EventMessage(
 
             first_name=entity.first_name,

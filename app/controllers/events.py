@@ -41,7 +41,7 @@ class Events(Controller):
     @route_with('/api/events', methods=['GET'])
     def api_list(self):
         evt = Event.list_all()
-        logging.info("===EVT== 2:: %s" % evt)
+        # logging.info("===EVT== 2:: %s" % evt)
         list_e = []
         for event in evt:
             if event.seat_map_url is None or event.seat_map_url == "":

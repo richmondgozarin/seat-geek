@@ -5,9 +5,9 @@ from app.models.account import Account
 class UserSvc:
 
     @staticmethod
-    def get_current_user(key_only=False):
+    def get_current_user():
         user = users.get_current_user()
-        return Account.get(user.email(), key_only=key_only)
+        return Account.get(key_name=user.email())
 
     @staticmethod
     def generate_logout_url():

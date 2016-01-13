@@ -33,7 +33,7 @@ class Tickets(Controller):
     @route_with('/api/tickets/:<tckt_key>/details', methods=['GET'])
     def api_get_details(self, tckt_key=None):
         ticket = self.util.decode_key(tckt_key).get()
-        logging.info('===TICKETS == %s' % ticket)
+        # logging.info('===TICKETS == %s' % ticket)
         info = Ticket.to_message(ticket)
         self.context['data'] = info
 

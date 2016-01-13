@@ -13,8 +13,8 @@ class Main(Controller):
         self.meta.view.template_name = 'angular/app-index.html'
         active_user = UserSvc.get_current_user()
         logging.info("User: %s" % active_user)
-        # user = Account.transform_message(active_user)
-        self.context['active_user'] = active_user # protojson.encode_message(user)
+        user = Account.transform_message(active_user)
+        self.context['active_user'] = protojson.encode_message(user)
         self.context['logout_url'] = users.create_logout_url('/')
 
     @route_with(template='/admin')

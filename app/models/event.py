@@ -3,6 +3,7 @@ from ferris.behaviors import searchable
 from google.appengine.ext import deferred
 from google.appengine.api import app_identity
 from app.models.id_tracker import IdTracker
+
 import logging
 import urllib2
 APP_ID = app_identity.get_application_id()
@@ -24,7 +25,9 @@ class Event(BasicModel):
     location = ndb.StringProperty(indexed=True)
     external_link = ndb.StringProperty(indexed=True)
     photo = ndb.BlobKeyProperty()
+    photo_url = ndb.StringProperty(indexed=True)
     seat_map = ndb.BlobKeyProperty()
+    seat_map_url = ndb.StringProperty(indexed=True)
 
     def create_index(self):
         deferred.defer(EventIndex.create, self)
@@ -37,9 +40,12 @@ class Event(BasicModel):
 
     @classmethod
     def list_all(cls):
-        csas = cls.query()
-        events = [cls.buildEvent(event) for event in csas]
-        return CompletedEvents(events = events)
+        return cls.query().fetch()
+
+    @classmethod
+    def to_message(cls, events):
+        eventMsg = [cls.buildEvent(event) for event in events]
+        return CompletedEvents(events=eventMsg)
 
     @classmethod
     def create(cls, params):
@@ -48,6 +54,12 @@ class Event(BasicModel):
         item.populate(**params)
         item.put()
         return item
+
+    @classmethod
+    def update(cls, **params):
+        item = cls()
+        item.populate(**params)
+        item.put()
 
     @classmethod
     def remove(cls):
@@ -88,8 +100,8 @@ class Event(BasicModel):
             venue=event.venue,
             location=event.location,
             external_link=event.external_link,
-            # photo=event.photo,
-            # seat_map=event.seat_map
+            photo_url=event.photo_url,
+            seat_map_url=event.seat_map_url
         )
 
 
@@ -124,9 +136,10 @@ class EventMessage(messages.Message):
     location = messages.StringField(6)
     external_link = messages.StringField(7)
     key = messages.StringField(10)
-    # photo = messages.BytesField(8)
-    # seat_map = messages.BytesField(9)
+    photo_url = messages.StringField(8)
+    seat_map_url = messages.StringField(9)
 
 
 class CompletedEvents(messages.Message):
     events = messages.MessageField(EventMessage, 1, repeated=True)
+

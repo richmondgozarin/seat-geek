@@ -15,7 +15,6 @@
         this.ticketListing = tickets;
         this.info = details;
 
-
         function tickets(){
           var self = this;
           self.loading.watch(TicketRest.list())
@@ -31,6 +30,7 @@
           .success(function(d){
             console.log(d.tickets[0]);
             self.details = d.tickets[0];
+            self.total = self.details.price * self.details.quantity * 1.10;
           })
         }
     }

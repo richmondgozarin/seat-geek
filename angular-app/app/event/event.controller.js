@@ -14,7 +14,6 @@
     var main = this;
 
     main.model = Event;
-
     function activate(){
       Event.listing();
     }

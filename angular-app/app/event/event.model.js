@@ -20,6 +20,8 @@
         Event.loading = loading.new();
         Event.listing = listing;
         Event.search = search;
+        Event.logout_url = logout_url;
+        Event.greeter = greeter;
         Event.keyword = null;
 
         function listing(){

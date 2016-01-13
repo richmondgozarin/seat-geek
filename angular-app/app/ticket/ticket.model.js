@@ -13,7 +13,7 @@
     function ticketModel(TicketRest, loading){
         this.loading = loading.new();
         this.ticketListing = tickets;
-        this.details = details;
+        this.info = details;
 
 
         function tickets(){

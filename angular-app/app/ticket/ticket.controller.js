@@ -19,7 +19,7 @@
     function activate(){
       TicketModel.ticketListing();
       if (routeParams.ticket_key){
-        TicketModel.details(routeParams.ticket_key);
+        TicketModel.info(routeParams.ticket_key);
       }
     }
 

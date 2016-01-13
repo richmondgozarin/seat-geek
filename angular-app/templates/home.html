@@ -55,7 +55,9 @@
 
             <ul class="collection" ng-repeat="v in event.model.lists">
               <li class="collection-item avatar">
-                <i class="material-icons circle red">play_arrow</i>
+                <i class="material-icons circle red">
+                  <img src="{{v.photo_url}}" height="40">
+                </i>
                 <span class="title">
                   <a target="_blank" href="{{v.external_link}}">{{v.event_name}}</a>
                 </span>

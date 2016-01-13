@@ -2,17 +2,16 @@
       <div class="nav-wrapper container">
         <a id="logo-container" href="#" class="brand-logo">SeatNow</a>
         <ul class="right hide-on-med-and-down">
-          <li><a href="#/signup">Sign Up</a></li>
-          <li><a href="#/login">Login</a></li>
+          <li><a href="#/profile">{{event.model.greeter}}</a></li>
+          <li><a href="{{event.model.logout_url}}" class="logout"><i class="mdi-action-exit-to-app"></i></a></li>
         </ul>
         <ul id="nav-mobile" class="side-nav" style="left: -250px;">
-          <li><a href="#/signup">Sign Up</a></li>
-          <li><a href="#/login">Login</a></li>
+          <li><a href="#/profile">Profile</a></li>
+          <li><a href="{{event.model.logout_url}}" class="logout"><i class="mdi-action-exit-to-app"></i></a></li>
         </ul>
         <a href="#" data-activates="nav-mobile" class="button-collapse top-nav" data-sidenav="left" data-menuwidth="500"  data-closeonclick="true"><i class="material-icons">menu</i></a>
       </div>
   </nav>
-
   <div id="index-banner" class="parallax-container">
     <div class="section no-pad-bot">
       <div class="container">

@@ -7,10 +7,12 @@
 
     sellerModel.$inject = [
         'SellerRest',
-        'loading'
+        'EventRest',
+        'loading',
+        '$q'
     ];
 
-    function sellerModel(SellerRest, loading){
+    function sellerModel(SellerRest, EventRest, loading, $q){
 
         function Seller(data) {
             this._dbSaved = null;
@@ -19,31 +21,60 @@
 
         Seller.loading = loading.new();
         Seller.listing = listing;
-        Seller.search = search;
-        Seller.keyword = null;
+        Seller.submit = submit;
+        Seller.event_key = null;
+        Seller.ticket_image = null;
+        Seller.section = null;
+        Seller.quantity = null;
+        Seller.price = null;
 
-        function listing(){
+        function listing(key){
           var self = this;
-          self.loading.watch(SellerRest.list())
-          .success(function(d){
-            console.log(d);
-            self.lists = d.Sellers;
-          })
+          var call1 = SellerRest.get_tickets(key)
+                    .success(function(d){
+                      console.log(d);
+                      self.lists = d.tickets || [];
+                    });
+          var call2 = EventRest.list()
+                      .success(function(d){
+                        console.log(d.events);
+                        self.events = d.events || [];
+                      })
+                      .error(function(d){
+                        self.events = 'No events for today.';
+                      });
+
+          self.loading
+            .watch($q.all([call1,call2]));
         }
 
-        function search(){
+        function submit(){
           var self = this;
-          self.loading.watch(SellerRest.search(Seller.keyword))
-          .success(function(d){
-            console.log(d);
-            self.found = d.Sellers || [];
-          })
-          .error(function(d){
-            self.found = 'Keyword not found.';
-          });
+            if (Seller.section == ''){
+              alert('Section is required.');
+            } else {
+              var params = {
+                'event': Seller.event_key,
+                'scalper_name': active_user.key,
+                'ticket_img': Seller.ticket_image,
+                'section': Seller.section,
+                'quantity': Seller.quantity,
+                'price': Seller.price
+              }
+
+              var call1 = SellerRest.create(params)
+              .success(function(d){
+                console.log(d);
+                alert('New Ticket Created.');
+                /*window.location = "/#/seller";*/
+              });
+
+              self.loading
+                .watch($q.all([call1]));
+            }
         }
 
-        return Seller
+        return Seller;
     }
 
 })(window.angular);

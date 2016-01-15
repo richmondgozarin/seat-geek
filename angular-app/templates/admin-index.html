@@ -11,7 +11,9 @@
   <link href="/static/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <!--  Scripts-->
   <script src="/ng/components/jquery/dist/jquery.min.js"></script>
-
+  <!--Import jQuery before materialize.js-->
+  <script src="/static/js/materialize.js"></script>
+  <script src="/static/js/init.js"></script>
 </head>
 <body ng-app="app">
 
@@ -74,11 +76,17 @@
     var greeter = "";
     (typeof(active_user.first_name) !== 'undefined') ? userName=active_user.first_name : userName=active_user.email;
     document.getElementById('user_name').text = "Hi " + userName + "!";
+
+    window.paypalCheckoutReady = function() {
+      paypal.checkout.setup("R4QLS5PQSDB3S", {
+        locale: 'en_US',
+        environment: 'sandbox',
+        container: ['t1']
+      });
+    }
   </script>
 
-  <!--Import jQuery before materialize.js-->
-  <script src="/static/js/materialize.js"></script>
-  <script src="/static/js/init.js"></script>
+  <script async src="//www.paypalobjects.com/api/checkout.js"></script>
 
   <!-- Angular -->
   <script src="/ng/components/angular/angular.min.js"></script>
@@ -123,6 +131,7 @@
   <script src="/ng/admin/account/account.controller.js"></script>
 
   <script src="/ng/directives/date.directive.js"></script>
+  <script src="/ng/directives/select.directive.js"></script>
 
   </body>
 </html>

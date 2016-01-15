@@ -17,8 +17,8 @@
       return $http.get(base_url);
     };
 
-    this.get = function(a_key) {
-      return $http.get(base_url + '/get_tickets' + '/:' + a_key);
+    this.get_tickets = function(key) {
+      return $http.get(base_url + '/:' + key + '/seller');
     };
 
     this.search = function(keyword) {

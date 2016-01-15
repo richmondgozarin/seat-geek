@@ -29,7 +29,6 @@
 
       function create(){
         var self = this;
-        alert(Account.email);
         if (Account.password != Account.conf_password){
           alert('Password and Confirm Password does not match.');
         } else {

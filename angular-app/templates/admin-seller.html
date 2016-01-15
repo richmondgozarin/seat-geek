@@ -6,13 +6,71 @@
           <ul class="collection with-header">
             <li class="collection-header black-text"><h6><strong>Your Tickets</strong></h6></li>
 
-            <li class="collection-item avatar" ng-repeat="ticket in seller.model.showDeals" ng-if="seller.model.showDeals.length > 0" style="padding-left: 20px;">
+            <li class="collection-item avatar" ng-repeat="ticket in seller.model.lists" ng-if="seller.model.lists.length > 0" style="padding-left: 20px;">
+              <p class="black-text">{{ticket.event.event_name}}</p>
               <span class="title">
                 <a href="#!">{{ticket.section}}</a>
               </span>
               <p class="black-text">{{ticket.quantity}} e-tickets</p>
-              <p class="secondary-content black-text" style="right:260px;">{{ticket.scalper_name.last_name}}</p>
-              <a href="#/checkout/{{ticket.key}}" class="secondary-content waves-effect waves-light btn">{{ticket.price | currency: "₱"}}/ea</a>
+              <p class="secondary-content black-text">{{ticket.price | currency: "₱"}}/ea</p>
+            </li>
+          </ul>
+        </div>
+
+        <div class="col s6">
+          <ul class="collection with-header">
+            <li class="collection-header black-text"><h6><strong>Upload Your Tickets</strong></h6></li>
+
+            <li class="collection-item avatar" style="padding-left: 20px;">
+              <div class="row">
+                <div class="input-field col s12">
+                  <select class="browser-default" ng-model="seller.model.event_key">
+                    <option value="" disabled selected>Choose your event</option>
+                    <option select="select" ng-value="evt.key"
+
+                    ng-repeat="evt in seller.model.events" ng-bind="evt.event_name">{{::evt.event_name}}</option>
+
+                  </select>
+                  <label>Event</label>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="file-field input-field col s12">
+                  <div class="btn">
+                    <span>Ticket</span>
+                    <input id="ticket" ng-model="seller.model.ticket_image" type="file" class="validate">
+                  </div>
+                  <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text">
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="input-field col s12">
+                  <input id="section" ng-model="seller.model.section" type="text" class="validate">
+                  <label for="section">Section</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <input id="quantity" type="number" ng-model="seller.model.quantity" class="validate">
+                  <label for="quantity">Quantity</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <input id="price" type="number" ng-model="seller.model.price" class="validate">
+                  <label for="price">Price</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <button class="waves-effect waves-light btn" ng-click="seller.model.submit()">Submit</button>
+                </div>
+              </div>
+            </div>
             </li>
           </ul>
         </div>

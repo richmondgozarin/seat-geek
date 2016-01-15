@@ -12,7 +12,7 @@ class PaypalPayments(Controller):
 
     @route_with('/api/paypal/access_token', methods=['GET'])
     def api_paypal_payment(self):
-        pay = paypalrestsdk.configure({
+        paypalrestsdk.configure({
             'mode': 'sandbox',
             'client_id': 'EBWKjlELKMYqRNQ6sYvFo64FtaRLRR5BdHEESmha49TM',
             'client_secret': 'EO422dn3gQLgDbuwqTjzrFgFtaRLRR5BdHEESmha49TM'
@@ -40,4 +40,4 @@ class PaypalPayments(Controller):
 
         # pay = payment.create()
 
-        self.context['data'] = pay
+        self.context['data'] = 'Pay'

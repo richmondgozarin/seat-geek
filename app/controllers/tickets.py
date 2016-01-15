@@ -5,6 +5,7 @@ from app.models.ticket import Ticket
 from app.models.event import Event
 # import braintree
 import logging
+import json
 
 
 class Tickets(Controller):
@@ -23,6 +24,19 @@ class Tickets(Controller):
     @route_with('/api/tickets', methods=['GET'])
     def api_list(self):
         self.context['data'] = Ticket.list_all()
+
+    @route_with('/api/tickets', methods=['POST'])
+    def api_create(self):
+        sell_tickets = json.loads(self.request.body)
+        event_key = self.util.decode_key(sell_tickets['event']).get()
+        # logging.info('===::sell_tickets::=== %s' % sell_tickets['event'])
+        # Ticket.create()
+        return 200
+
+    @route_with('/api/tickets/:<key>/seller', methods=['GET'])
+    def api_seller_list(self, key=None):
+        seller = self.util.decode_key(key).get()
+        self.context['data'] = Ticket.list_per_user(seller.key)
 
     @route_with('/api/tickets/:<tckt_key>/deals', methods=['GET'])
     def api_get_ticket(self, tckt_key=None):

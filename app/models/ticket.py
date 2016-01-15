@@ -9,6 +9,7 @@ class Ticket(BasicModel):
     event = ndb.KeyProperty(kind='Event', indexed=True)
     scalper_name = ndb.KeyProperty(kind='Account', indexed=True)
     ticket_img = ndb.BlobKeyProperty()
+    ticket_url = ndb.StringProperty(indexed=True)
     section = ndb.StringProperty(indexed=True)
     quantity = ndb.IntegerProperty(indexed=True)
     price = ndb.FloatProperty(indexed=True)
@@ -17,6 +18,12 @@ class Ticket(BasicModel):
     @classmethod
     def list_all(cls):
         return cls.query().order(cls.price)
+
+    @classmethod
+    def list_per_user(cls, key):
+        csas = cls.query(cls.scalper_name == key).order(cls.price)
+        tickets = [cls.buildTicket(ticket) for ticket in csas]
+        return CompletedTickets(tickets=tickets)
 
     @classmethod
     def create(cls, params):
@@ -61,7 +68,8 @@ class Ticket(BasicModel):
         return ScalperMessage(
             key=name.key.urlsafe(),
             first_name=name.first_name,
-            last_name=name.last_name
+            last_name=name.last_name,
+            email=name.email
         )
 
 
@@ -69,6 +77,7 @@ class ScalperMessage(messages.Message):
     key = messages.StringField(1)
     first_name = messages.StringField(2)
     last_name = messages.StringField(3)
+    email = messages.StringField(4)
 
 
 class TicketMessage(messages.Message):

@@ -39,7 +39,7 @@ class Account(BasicModel):
     @staticmethod
     def transform_message(entity):
         return EventMessage(
-
+            key=entity.key.urlsafe(),
             first_name=entity.first_name,
             last_name=entity.last_name,
             email=entity.email
@@ -51,6 +51,7 @@ def format_key_name(key_name):
 
 
 class EventMessage(messages.Message):
+    key = messages.StringField(1)
     first_name = messages.StringField(2)
     last_name = messages.StringField(3)
     email = messages.StringField(4)

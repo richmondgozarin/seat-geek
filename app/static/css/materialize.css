@@ -1605,6 +1605,14 @@
 .shades-text.text-transparent {
   color: transparent !important; }
 
+.aqua {
+  background-color: #039be5 !important;
+}
+
+.aqua-text{
+  color: #039be5 !important;
+}
+
 .black {
   background-color: #000000 !important; }
 

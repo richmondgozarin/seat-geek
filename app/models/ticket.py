@@ -28,7 +28,7 @@ class Ticket(BasicModel):
     @classmethod
     def create(cls, params):
         params['event'] = ndb.Key(urlsafe=params['event'])
-        params['ticket_number'] = IdTracker.generate_number('ticket')
+        # params['ticket_number'] = IdTracker.generate_number('ticket')
         item = cls()
         item.populate(**params)
         item.put()

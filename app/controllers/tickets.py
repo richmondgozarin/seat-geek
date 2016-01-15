@@ -29,8 +29,16 @@ class Tickets(Controller):
     def api_create(self):
         sell_tickets = json.loads(self.request.body)
         event_key = self.util.decode_key(sell_tickets['event']).get()
-        # logging.info('===::sell_tickets::=== %s' % sell_tickets['event'])
-        # Ticket.create()
+        account = self.util.decode_key(sell_tickets['scalper_name']).get()
+        logging.info('===::sell_tickets::=== %s' % type(account))
+        params = {
+            'event': event_key.key.urlsafe(),
+            'scalper_name': account.key,
+            'section': sell_tickets['section'],
+            'quantity': sell_tickets['quantity'],
+            'price': sell_tickets['price']
+        }
+        Ticket.create(params)
         return 200
 
     @route_with('/api/tickets/:<key>/seller', methods=['GET'])

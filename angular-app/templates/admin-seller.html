@@ -7,9 +7,9 @@
             <li class="collection-header black-text"><h6><strong>Your Tickets</strong></h6></li>
 
             <li class="collection-item avatar" ng-repeat="ticket in seller.model.lists" ng-if="seller.model.lists.length > 0" style="padding-left: 20px;">
-              <p class="black-text">{{ticket.event.event_name}}</p>
+              <p class="black-text" style="width: 270px;">{{ticket.event.event_name}}</p>
               <span class="title">
-                <a href="#!">{{ticket.section}}</a>
+                <p class="aqua-text">{{ticket.section}}</p>
               </span>
               <p class="black-text">{{ticket.quantity}} e-tickets</p>
               <p class="secondary-content black-text">{{ticket.price | currency: "₱"}}/ea</p>
@@ -31,7 +31,7 @@
                     ng-repeat="evt in seller.model.events" ng-bind="evt.event_name">{{::evt.event_name}}</option>
 
                   </select>
-                  <label>Event</label>
+                  <!-- <label>Event</label> -->
                 </div>
               </div>
 
@@ -62,7 +62,7 @@
               <div class="row">
                 <div class="input-field col s12">
                   <input id="price" type="number" ng-model="seller.model.price" class="validate">
-                  <label for="price">Price</label>
+                  <label for="price">Price per ticket</label>
                 </div>
               </div>
               <div class="row">

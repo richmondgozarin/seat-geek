@@ -17,10 +17,6 @@
       Seller.listing(active_user.key);
     }
 
-    $('select').on('contentChanged', function() {
-      // re-initialize (update)
-      $(this).material_select();
-    });
     activate();
 
   }

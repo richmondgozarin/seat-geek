@@ -66,6 +66,12 @@
               .success(function(d){
                 console.log(d);
                 alert('New Ticket Created.');
+                Seller.event_key = null;
+                Seller.ticket_image = null;
+                Seller.section = null;
+                Seller.quantity = null;
+                Seller.price = null;
+                Seller.listing(active_user.key);
                 /*window.location = "/#/seller";*/
               });
 

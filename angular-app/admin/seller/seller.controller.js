@@ -11,8 +11,10 @@
 
   function sellerCtrl(Seller) {
     var seller = this;
-
+    seller.submit = Seller.submit;
+    seller.uploader = Seller.uploader;
     seller.model = Seller;
+
     function activate(){
       Seller.listing(active_user.key);
     }

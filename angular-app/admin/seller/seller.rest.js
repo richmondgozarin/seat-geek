@@ -17,6 +17,10 @@
       return $http.get(base_url);
     };
 
+    this.upload_url = function(){
+      return $http.get(base_url + '/upload_url');
+    }
+
     this.get_tickets = function(key) {
       return $http.get(base_url + '/:' + key + '/seller');
     };

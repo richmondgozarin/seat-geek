@@ -8,6 +8,7 @@ class Account(BasicModel):
     last_name = ndb.StringProperty(indexed=True)
     email = ndb.StringProperty(indexed=True)
     password = ndb.StringProperty(indexed=False)
+    is_admin = ndb.BooleanProperty(indexed=False, default=False)
 
     def __repr__(self):
         return '%s %s' % (self.first_name, self.last_name)
@@ -55,3 +56,4 @@ class EventMessage(messages.Message):
     first_name = messages.StringField(2)
     last_name = messages.StringField(3)
     email = messages.StringField(4)
+    is_admin = messages.StringField(5)

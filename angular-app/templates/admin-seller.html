@@ -39,10 +39,10 @@
                 <div class="file-field input-field col s12">
                   <div class="btn">
                     <span>Ticket</span>
-                    <input id="ticket" ng-model="seller.model.ticket_image" type="file" class="validate">
+                    <input type="file" nv-file-select="" uploader="seller.model.fileUpload" class="validate">
                   </div>
                   <div class="file-path-wrapper">
-                    <input class="file-path validate" type="text">
+                    <input class="file-path validate" ng-model="seller.model.ticket_image" type="text">
                   </div>
                 </div>
               </div>
@@ -67,7 +67,7 @@
               </div>
               <div class="row">
                 <div class="input-field col s12">
-                  <button class="waves-effect waves-light btn" ng-click="seller.model.submit()">Submit</button>
+                  <button class="waves-effect waves-light btn" ng-click="seller.submit()">Submit</button>
                 </div>
               </div>
             </div>

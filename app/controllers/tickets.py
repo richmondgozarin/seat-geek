@@ -1,6 +1,7 @@
 from ferris import Controller, scaffold, messages, route_with
 from ferris.components.pagination import Pagination
 from ferris.components.upload import Upload
+from ferris.controllers.download import Download
 from app.models.ticket import Ticket
 from app.models.event import Event
 # import braintree
@@ -11,7 +12,7 @@ import json
 class Tickets(Controller):
     class Meta:
         prefixes = ('admin', 'api',)
-        components = (scaffold.Scaffolding, Pagination, messages.Messaging, Upload)
+        components = (scaffold.Scaffolding, Pagination, messages.Messaging, Upload, Download, )
         Model = Ticket
         pagination_limit = 10
 
@@ -20,6 +21,44 @@ class Tickets(Controller):
     admin_add = scaffold.add
     admin_edit = scaffold.edit
     admin_delete = scaffold.delete
+
+    @route_with('/api/tickets/upload_url', methods=['GET'])
+    def url(self):
+        return self.components.upload.generate_upload_url(
+            uri=self.uri('tickets:complete')
+        )
+
+    @route_with('/api/tickets/complete', methods=['GET'])
+    def complete(self):
+        serving_urls = []
+        sell_tickets = json.loads(self.request.body)
+        event_key = self.util.decode_key(sell_tickets['event']).get()
+        account = self.util.decode_key(sell_tickets['scalper_name']).get()
+
+        uploads = self.components.upload.get_uploads()
+        files = uploads.get('file')
+        for blobinfo in files:
+
+            logging.info('===::sell_tickets::=== %s' % type(account))
+            params = {
+                'event': event_key.key.urlsafe(),
+                'scalper_name': account.key,
+                'ticket_img': blobinfo.key(),
+                'section': sell_tickets['section'],
+                'quantity': sell_tickets['quantity'],
+                'price': sell_tickets['price']
+            }
+            Ticket.create(params)
+            # serving_urls.append({'filename': blobinfo.filename,
+            #     'url': "https://storage.googleapis.com/%s" % (blobinfo.cloud_storage.gs_object_name[4:]),
+            #     'content_type': blobinfo.content_type
+            #     })
+
+        return 200
+
+    @route_with('/api/tickets/download_url', methods=['GET'])
+    def api_download_url(self, blobkey):
+        return self.uri("download", blob=blobkey)
 
     @route_with('/api/tickets', methods=['GET'])
     def api_list(self):
@@ -58,24 +97,3 @@ class Tickets(Controller):
         # logging.info('===TICKETS == %s' % ticket)
         info = Ticket.to_message(ticket)
         self.context['data'] = info
-
-    # @classmethod
-    # def braintree(self):
-    #     braintree.Configuration.configure(
-    #         braintree.Environment.Sandbox,
-    #         'kqg558ff2r98njfx',
-    #         'dqq36p9vf7nprsxz',
-    #         '5d570f06244e40d9d2a78159edb748ab'
-    #     )
-
-    # @route_with("/api/braintree/client_token", methods=["GET"])
-    # def client_token():
-    #     return braintree.ClientToken.generate()
-
-    # @route_with("/api/braintree/checkout", methods=["POST"])
-    # def create_purchase():
-    #   nonce = request.form["payment_method_nonce"]
-    #   result = braintree.Transaction.sale({
-    #     "amount": "10.00",
-    #     "payment_method_nonce": nonce_from_the_client
-    # })

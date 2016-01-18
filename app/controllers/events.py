@@ -23,7 +23,7 @@ class Events(Controller):
     @route_with('/api/events/url', methods=['GET'])
     def url(self):
         return self.components.upload.generate_upload_url(
-            uri=self.uri('upload:complete')
+            uri=self.uri('events:complete')
         )
 
     @route_with('/api/events/complete', methods=['GET'])

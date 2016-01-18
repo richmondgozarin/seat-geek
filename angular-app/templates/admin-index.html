@@ -77,16 +77,16 @@
     (typeof(active_user.first_name) !== 'undefined') ? userName=active_user.first_name : userName=active_user.email;
     document.getElementById('user_name').text = "Hi " + userName + "!";
 
-    window.paypalCheckoutReady = function() {
+    /*window.paypalCheckoutReady = function() {
       paypal.checkout.setup("R4QLS5PQSDB3S", {
         locale: 'en_US',
         environment: 'sandbox',
         container: ['t1']
       });
-    }
+    }*/
   </script>
 
-  <script async src="//www.paypalobjects.com/api/checkout.js"></script>
+  <!-- <script async src="//www.paypalobjects.com/api/checkout.js"></script> -->
 
   <!-- Angular -->
   <script src="/ng/components/angular/angular.min.js"></script>
@@ -100,11 +100,11 @@
   <script src="/ng/components/angular-utilities/passive-messenger.js"></script>
   <script src="/ng/components/angular-ui-select/dist/select.js"></script>
   <script src="/ng/components/materialize/angular-materialize.js"></script>
-  <script src="https://js.braintreegateway.com/v2/braintree.js"></script>
 
   <!-- Application Code -->
   <script src="/ng/admin/module.js"></script>
   <script src="/ng/admin/routes.js"></script>
+  <script src="/ng/components/angular-file-upload/dist/angular-file-upload.min.js"></script>
 
   <script src="/ng/admin/admin/admin.rest.js"></script>
   <script src="/ng/admin/admin/admin.model.js"></script>

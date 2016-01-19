@@ -25,14 +25,6 @@
       return $http.get(base_url + '/:' + key + '/seller');
     };
 
-    this.search = function(keyword) {
-      return $http.get(base_url + '/search' + '/:' + keyword);
-    };
-
-    this.get_details = function(e_key) {
-      return $http.get(base_url + '/:' + e_key + '/details' );
-    };
-
     this.create = function(params) {
       return $http.post(base_url, params);
     };

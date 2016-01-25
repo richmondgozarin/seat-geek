@@ -15,9 +15,10 @@ class Ticket(BasicModel):
     price = ndb.FloatProperty(indexed=True)
     sold = ndb.BooleanProperty(default=False, indexed=True)
 
+
     @classmethod
     def list_all(cls):
-        return cls.query().order(cls.price)
+        return cls.query(cls.sold == False).order(cls.price)
 
     @classmethod
     def list_per_user(cls, key):
@@ -42,7 +43,7 @@ class Ticket(BasicModel):
 
     @classmethod
     def find_tickets(cls, key):
-        csas = cls.find_all_by_event(key).order(cls.price)
+        csas = cls.find_all_by_event(key).filter(cls.sold == False).order(cls.price)
         tickets = [cls.buildTicket(ticket) for ticket in csas]
         return CompletedTickets(tickets=tickets)
 

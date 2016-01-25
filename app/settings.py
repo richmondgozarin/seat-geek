@@ -65,6 +65,31 @@ settings['appstats'] = {
     'enabled_live': False
 }
 
+# settings for app
+settings['paypal'] = {
+    # 'endpoint': 'https://api-3t.sandbox.paypal.com/nvp',  # sandbox xpress-checkout
+    'endpoint': 'https://svcs.sandbox.paypal.com/AdaptivePayments/',  # sandbox
+    # 'endpoint': 'https://svcs.paypal.com/AdaptivePayments/', # production
+    'payment_host': 'https://www.sandbox.paypal.com/au/cgi-bin/webscr',  # sandbox
+    # 'payment_host': 'https://www.sandbox.paypal.com/cgi-bin/webscr',  # sandbox xpress-checkout
+    # 'payment_host': 'https://www.paypal.com/webscr', # production
+    'userid': 'richmond.gozarin-facilitator_api1.gmail.com',
+    'password': '3JSA3MY7GYQNARJK',
+    'signature': 'AOsWznKk3.jdTvQdGOlADSuc1T1MAb1WUBTsNrEU9DlE7u9hYhU9lgsX',
+    'app_id': 'APP-80W284485P519543T',  # sandbox only
+    'email': 'richmond.gozarin-facilitator@gmail.com',
+
+    'commission': 1.10,  # 10%
+
+    'use_chain': False,
+    'use_ipn': False,
+    'use_embedded': False,
+    'shipping': False,  # not yet working properly; PayPal bug
+
+    # 'embedded_endpoint': 'https://paypal.com/webapps/adaptivepayment/flow/pay'
+    'embedded_endpoint': 'https://www.sandbox.paypal.com/webapps/adaptivepayment/flow/pay'
+}
+
 # Optionally, you may use the settings plugin to dynamically
 # configure your settings via the admin interface. Be sure to
 # also enable the plugin via app/routes.py.

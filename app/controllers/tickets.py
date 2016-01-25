@@ -69,7 +69,6 @@ class Tickets(Controller):
         sell_tickets = json.loads(self.request.body)
         event_key = self.util.decode_key(sell_tickets['event']).get()
         account = self.util.decode_key(sell_tickets['scalper_name']).get()
-        logging.info('===::sell_tickets::=== %s' % type(account))
         params = {
             'event': event_key.key.urlsafe(),
             'scalper_name': account.key,

@@ -1,5 +1,6 @@
 from google.appengine.api import users
 from ferris import Controller, route_with
+from ferris import settings
 from app.services.user_svc import UserSvc
 from app.models.account import Account
 from protorpc import protojson
@@ -14,6 +15,7 @@ class Main(Controller):
         user = Account.transform_message(active_user)
         self.context['active_user'] = protojson.encode_message(user)
         self.context['logout_url'] = users.create_logout_url('/')
+        self.context['commission'] = settings.get('paypal').get('commission')
 
     @route_with(template='/account')
     def admin(self):

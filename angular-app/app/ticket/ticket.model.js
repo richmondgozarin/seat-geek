@@ -7,13 +7,15 @@
 
     ticketModel.$inject = [
         'TicketRest',
-        'loading'
+        'loading',
+        '$routeParams'
     ];
 
-    function ticketModel(TicketRest, loading){
+    function ticketModel(TicketRest, loading, routeParams){
         this.loading = loading.new();
         this.ticketListing = tickets;
         this.info = details;
+        this.buy = buy;
 
         function tickets(){
           var self = this;
@@ -26,11 +28,20 @@
 
         function details(ticket_key){
             var self = this;
-          self.loading.watch(TicketRest.get_details(ticket_key))
+            self.loading.watch(TicketRest.get_details(ticket_key))
+            .success(function(d){
+              console.log(d.tickets[0]);
+              self.details = d.tickets[0];
+              self.total = self.details.price * self.details.quantity * commission;
+            })
+        }
+
+        function buy(ticket_key){
+          var self = this;
+          self.loading.watch(TicketRest.buy(routeParams.ticket_key))
           .success(function(d){
-            console.log(d.tickets[0]);
-            self.details = d.tickets[0];
-            self.total = self.details.price * self.details.quantity * 1.10;
+            console.log('BUY:: ' + d);
+            window.location = d;
           })
         }
     }

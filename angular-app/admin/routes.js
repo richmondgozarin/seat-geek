@@ -34,6 +34,12 @@
         controllerAs: 'acct',
       })
 
+      .when('/proceed/:ticket_key', {
+        templateUrl: '/ng/templates/proceed.html',
+        controller: 'ProceedCtrl',
+        controllerAs: 'prd',
+      })
+
       .when('/seller', {
         templateUrl: '/ng/templates/admin-seller.html',
         controller: 'SellerCtrl',

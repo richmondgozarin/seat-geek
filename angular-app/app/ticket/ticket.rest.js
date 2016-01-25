@@ -33,6 +33,10 @@
       return $http.put(base_url + '/:' + a_key, params);
     };
 
+    this.buy = function(key){
+      return $http.post('/api/paypal/:' + key);
+    }
+
   }
 
 })(window.angular);

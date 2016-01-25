@@ -62,6 +62,7 @@
   <script type="text/javascript">
     var active_user = {{active_user}};
     var logout_url = "{{logout_url}}";
+    var commission = {{commission}};
     $( "#content .logout" ).click(function() {
       /*alert( "Handler for .click() called." );*/
       window.location.replace(logout_url);
@@ -75,7 +76,13 @@
   <!--Import jQuery before materialize.js-->
   <script src="/static/js/materialize.js"></script>
   <script src="/static/js/init.js"></script>
-
+  <script src="https://www.paypalobjects.com/js/external/dg.js"></script>
+  <script>
+    var dgFlow = new PAYPAL.apps.DGFlow({ trigger: 'submitBtn' });
+    dgFlow = top.dgFlow || top.opener.top.dgFlow;
+    dgFlow.closeFlow();
+    top.close();
+  </script>
   <!-- Angular -->
   <script src="/ng/components/angular/angular.min.js"></script>
   <script src="/ng/components/angular-route/angular-route.min.js"></script>

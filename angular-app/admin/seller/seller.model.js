@@ -10,10 +10,11 @@
         'EventRest',
         'loading',
         'FileUploader',
-        '$q'
+        '$q',
+        'passive_messenger'
     ];
 
-    function sellerModel(SellerRest, EventRest, loading, FileUploader, $q){
+    function sellerModel(SellerRest, EventRest, loading, FileUploader, $q, passive_messenger){
 
         function Seller(data) {
             this._dbSaved = null;
@@ -68,7 +69,7 @@
               var call1 = SellerRest.create(params)
               .success(function(d){
                 console.log(d);
-                alert('New Ticket Created.');
+                passive_messenger.success('New Ticket Created.');
                 Seller.event_key = null;
                 Seller.ticket_image = null;
                 Seller.section = null;

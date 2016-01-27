@@ -8,7 +8,8 @@
     ticketModel.$inject = [
         'TicketRest',
         'loading',
-        '$routeParams'
+        '$routeParams',
+        /*'passive_messenger'*/
     ];
 
     function ticketModel(TicketRest, loading, routeParams){
@@ -40,6 +41,7 @@
           var self = this;
           self.loading.watch(TicketRest.buy(routeParams.ticket_key))
           .success(function(d){
+            /*passive_messenger.success('Redirecting to Paypal shortly...')*/
             console.log('BUY:: ' + d);
             window.location = d;
           })

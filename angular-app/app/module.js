@@ -43,8 +43,8 @@
   app.$inject = ['$log', 'passive_messenger', '$timeout', '$rootScope'];
 
   function app($log, passive_messenger, $timeout, $rootScope) {
-    $log.info('Angular App Loaded');
-    $timeout(function() { passive_messenger.success('Loaded'); });
+    /*$log.info('Angular App Loaded');*/
+    /*$timeout(function() { passive_messenger.success('Loaded'); });*/
     $rootScope.ngLoadingFinished = true;
   }
 })(window.angular);

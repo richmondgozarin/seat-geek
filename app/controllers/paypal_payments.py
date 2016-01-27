@@ -1,5 +1,5 @@
 from ferris import Controller, messages, route_with
-from google.appengine.api import users
+from google.appengine.api import users, app_identity
 from ferris import settings
 from app.models.ticket import Ticket
 from app.models.purchase import Purchase
@@ -11,7 +11,7 @@ import logging
 
 class PaypalPayments(Controller):
     class Meta:
-        prefixes = ('api',)
+        prefixes = ('api')
         components = (messages.Messaging,)
         Model = Ticket
 
@@ -25,7 +25,7 @@ class PaypalPayments(Controller):
             return pay.next_url().encode('ascii')  # self.redirect(  ) # go to paypal
         else:
             data = {
-                'item': Ticket.get(key),
+                'item': item,
                 'message': 'An error occurred during the purchase process'
             }
             utils.add_user(self.request.uri, data)
@@ -51,10 +51,11 @@ class PaypalPayments(Controller):
             seller_paypal_email = None
 
         pay = paypal.Pay(
+            item.quantity,
             item.price,
-            "%s" % (self.request.uri),
+            "%s" % ("http://" + app_identity.get_default_version_hostname()),
             # "%sreturn/%s/%s/" % (self.request.uri, purchase.key, purchase.secret),
-            "%s" % (self.request.uri),
+            "%s" % ("http://" + app_identity.get_default_version_hostname()),
             # "%scancel/%s/" % (self.request.uri, purchase.key),
             self.request.remote_addr,
             seller_paypal_email,
@@ -76,68 +77,3 @@ class PaypalPayments(Controller):
             purchase.status = 'ERROR'
             purchase.put()
             return (False, pay)
-
-# class BuyReturn(RequestHandler):
-
-#   def get(self, item_key, purchase_key, secret ):
-#     '''user arrives here after purchase'''
-#     purchase = model.Purchase.get( purchase_key )
-
-#     # validation
-#     if purchase == None: # no key
-#       self.error(404)
-
-#     elif purchase.status != 'CREATED' and purchase.status != 'COMPLETED':
-#       purchase.status_detail = 'Expected status to be CREATED or COMPLETED, not %s - duplicate transaction?' % purchase.status
-#       purchase.status = 'ERROR'
-#       purchase.put()
-#       self.error(501)
-
-#     elif secret != purchase.secret:
-#       purchase.status = 'ERROR'
-#       purchase.status_detail = 'BuyReturn secret "%s" did not match' % secret
-#       purchase.put()
-#       self.error(501)
-
-#     else:
-#       if purchase.status != 'COMPLETED':
-#         purchase.status = 'RETURNED'
-#         purchase.put()
-
-#       if settings.SHIPPING:
-#         purchase.shipping = paypal.ShippingAddress( purchase.paykey, self.request.remote_addr ).raw_response # TODO parse
-#         purchase.put()
-
-#       data = {
-#         'item': model.Item.get(item_key),
-#         'message': 'Purchased',
-#       }
-
-#       utils.add_user( self.request.uri, data )
-
-#       if settings.USE_EMBEDDED:
-#         data['close_embedded'] = True
-#         data['items'] = model.Item.recent()
-#         path = os.path.join(os.path.dirname(__file__), 'templates/main_embedded.htm')
-#       else:
-#         path = os.path.join(os.path.dirname(__file__), 'templates/buy.htm')
-#       self.response.out.write(template.render(path, data))
-
-# class BuyCancel(RequestHandler):
-#   def get(self, item_key, purchase_key):
-#     logging.debug( "cancelled %s with %s" % ( item_key, purchase_key ) )
-#     purchase = model.Purchase.get( purchase_key )
-#     purchase.status = 'CANCELLED'
-#     purchase.put()
-#     data = {
-#       'item': model.Item.get(item_key),
-#       'message': 'Purchase cancelled',
-#     }
-#     utils.add_user( self.request.uri, data )
-#     if settings.USE_EMBEDDED:
-#       data['close_embedded'] = True
-#       data['items'] = model.Item.recent()
-#       path = os.path.join(os.path.dirname(__file__), 'templates/main_embedded.htm')
-#     else:
-#       path = os.path.join(os.path.dirname(__file__), 'templates/buy.htm')
-#     self.response.out.write(template.render(path, data))

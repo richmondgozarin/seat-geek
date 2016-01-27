@@ -1,5 +1,6 @@
 from ferris import Controller, scaffold, messages, route_with
 from ferris.components.upload import Upload
+from ferris.components.csrf import CSRF, csrf_protect
 from ferris.controllers.download import Download
 from ferris.components.search import Search
 from google.appengine.api import app_identity
@@ -11,7 +12,7 @@ import json
 class Events(Controller):
     class Meta:
         prefixes = ('admin', 'api',)
-        components = (scaffold.Scaffolding, messages.Messaging, Upload, Search, Download, )
+        components = (scaffold.Scaffolding, messages.Messaging, Upload, Search, Download, CSRF)
         Model = Event
 
     admin_list = scaffold.list
@@ -19,6 +20,10 @@ class Events(Controller):
     admin_add = scaffold.add
     admin_edit = scaffold.edit
     admin_delete = scaffold.delete
+
+    @csrf_protect
+    def admin_add(self):
+        return scaffold.add(self)
 
     @route_with('/api/events/url', methods=['GET'])
     def url(self):

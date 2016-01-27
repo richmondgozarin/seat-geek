@@ -12,7 +12,7 @@ os.environ['foo_proxy'] = 'bar'
 
 
 class Pay(object):
-    def __init__(self, amount, return_url, cancel_url, remote_address, secondary_receiver=None, ipn_url=None, shipping=False):
+    def __init__(self, quantity, amount, return_url, cancel_url, remote_address, secondary_receiver=None, ipn_url=None, shipping=False):
         headers = {
             'X-PAYPAL-SECURITY-USERID': settings.get('paypal').get('userid'),
             'X-PAYPAL-SECURITY-PASSWORD': settings.get('paypal').get('password'),
@@ -24,8 +24,8 @@ class Pay(object):
         }
 
         data = {
-            'version': '93',
-            'method': 'SetExpressCheckout',
+            # 'version': '93',
+            # 'method': 'SetExpressCheckout',
             'currencyCode': 'PHP',
             'returnUrl': return_url,
             'cancelUrl': cancel_url,
@@ -38,9 +38,9 @@ class Pay(object):
             data['actionType'] = 'PAY'
 
         if secondary_receiver is None:  # simple payment
-            commission = amount * settings.get('paypal').get('commission')
+            total = quantity * amount * settings.get('paypal').get('commission')
             data['receiverList'] = {'receiver': [
-                {'email': settings.get('paypal').get('email'), 'amount': '%0.2f' % commission}
+                {'email': settings.get('paypal').get('email'), 'amount': '%0.2f' % total}
             ]
             }
         else:  # chained

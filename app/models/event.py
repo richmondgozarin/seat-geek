@@ -4,6 +4,7 @@ from google.appengine.ext import deferred
 from google.appengine.api import app_identity
 from app.models.id_tracker import IdTracker
 
+import datetime as dt
 import logging
 import urllib2
 APP_ID = app_identity.get_application_id()
@@ -40,7 +41,10 @@ class Event(BasicModel):
 
     @classmethod
     def list_all(cls):
-        return cls.query().fetch()
+        now = dt.datetime.now()
+        return cls.query(
+            cls.schedule_date >= now
+        ).fetch()
 
     @classmethod
     def to_message(cls, events):

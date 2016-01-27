@@ -5,8 +5,10 @@ import json
 import random
 import string
 
+
 def json_loads(request_body, keys):
     params = json.loads(request_body)
+
     def inner(key):
         if key not in params:
             return
@@ -26,10 +28,9 @@ def gather_keys(model):
     return ret
 
 
-def random_alnum( count ):
-  chars = string.letters + string.digits
-  result = ''
-  for i in range(count):
-    result += random.choice(chars)
-  return result
-
+def random_alnum(count):
+    chars = string.letters + string.digits
+    result = ''
+    for i in range(count):
+        result += random.choice(chars)
+    return result

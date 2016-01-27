@@ -8,7 +8,7 @@ class Account(BasicModel):
     last_name = ndb.StringProperty(indexed=True)
     email = ndb.StringProperty(indexed=True)
     password = ndb.StringProperty(indexed=False)
-    is_admin = ndb.BooleanProperty(indexed=False, default=False)
+    is_seller = ndb.BooleanProperty(indexed=False, default=False)
 
     def __repr__(self):
         return '%s %s' % (self.first_name, self.last_name)

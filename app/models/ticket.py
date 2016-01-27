@@ -15,7 +15,6 @@ class Ticket(BasicModel):
     price = ndb.FloatProperty(indexed=True)
     sold = ndb.BooleanProperty(default=False, indexed=True)
 
-
     @classmethod
     def list_all(cls):
         return cls.query(cls.sold == False).order(cls.price)

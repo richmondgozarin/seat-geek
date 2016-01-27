@@ -25,7 +25,7 @@
                 </td>
                 {% for property in scaffolding.display_properties %}
                     <td>
-                        {{s.print_value(item[property])}}
+                        {{s.print_value(item[property]) | e}}
                     </td>
                 {% endfor %}
                 <td class="col-lg-2 text-right">
